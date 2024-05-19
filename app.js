@@ -17,12 +17,15 @@ app.set("view engine", "ejs");
 app.use(require("body-parser").urlencoded({ extended: true }));
 
 // secret word handling
-let secretWord = "syzygy";
+// let secretWord = "syzygy"; <-- comment this out or remove this line
 app.get("/secretWord", (req, res) => {
-  res.render("secretWord", { secretWord });
+  if (!req.session.secretWord) {
+    req.session.secretWord = "syzygy";
+  }
+  res.render("secretWord", { secretWord: req.session.secretWord });
 });
 app.post("/secretWord", (req, res) => {
-  secretWord = req.body.secretWord;
+  req.session.secretWord = req.body.secretWord;
   res.redirect("/secretWord");
 });
 
