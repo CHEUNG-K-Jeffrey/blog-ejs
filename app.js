@@ -3,6 +3,16 @@ require("express-async-errors");
 
 const app = express();
 
+require("dotenv").config(); // to load the .env file into the process.env object
+const session = require("express-session");
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 app.set("view engine", "ejs");
 app.use(require("body-parser").urlencoded({ extended: true }));
 
