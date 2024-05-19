@@ -31,6 +31,7 @@ if (app.get("env") === "production") {
 }
 
 app.use(session(sessionParms));
+app.use(require("connect-flash")());
 
 app.set("view engine", "ejs");
 app.use(require("body-parser").urlencoded({ extended: true }));
