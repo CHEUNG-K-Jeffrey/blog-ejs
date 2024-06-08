@@ -1,7 +1,25 @@
+const helmet = require("helmet")
+const xss = require('xss-clean')
 const express = require("express");
 require("express-async-errors");
 
 const app = express();
+
+const rateLimit = require('express-rate-limit').rateLimit
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	// store: ... , // Redis, Memcached, etc. See below.
+})
+
+// Apply the rate limiting middleware to all requests.
+app.use(limiter)
+
+app.use(helmet());
+app.use(xss())
 
 require("dotenv").config(); // to load the .env file into the process.env object
 const session = require("express-session");
@@ -70,6 +88,8 @@ const secretWordRouter = require("./routes/secretWord");
 const auth = require("./middleware/auth");
 app.use("/secretWord", auth, secretWordRouter);
 app.use("/secretWord", secretWordRouter);
+const jobs = require("./routes/jobs");
+app.use("/jobs", auth, jobs);
 
 
 app.use((req, res) => {
