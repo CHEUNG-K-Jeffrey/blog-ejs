@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test mocha ./tests --exit",
     "dev": "nodemon app.js"
   },
   "author": "",
@@ -29,10 +29,16 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",
+    "@faker-js/faker": "^8.4.1",
+    "chai": "^5.1.1",
+    "chai-http": "^5.0.0",
     "eslint": "^9.4.0",
+    "factory-bot": "^6.3.1",
     "globals": "^15.4.0",
+    "mocha": "^10.4.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.3.1",
-    "prettier-plugin-ejs": "^1.0.3"
+    "prettier-plugin-ejs": "^1.0.3",
+    "puppeteer": "^22.10.0"
   }
 }
