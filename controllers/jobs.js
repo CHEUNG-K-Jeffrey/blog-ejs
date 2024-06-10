@@ -2,7 +2,7 @@ const Job = require("../models/Job");
 const parseVErr = require("../util/parseValidationErr");
 
 
-const jobsGet = async (req, res) => {
+const jobsGet = async (req, res, next) => {
     let jobs;
   try {
     jobs = await Job.find({createdBy: req.user._id})
@@ -17,7 +17,7 @@ const jobsGet = async (req, res) => {
     res.render("jobs", { jobs });
 }
 
-const jobsPost = async (req, res) => {
+const jobsPost = async (req, res, next) => {
     try {
     await Job.create({...req.body, createdBy: req.user._id });
   } catch (e) {
@@ -35,7 +35,7 @@ const jobsNew = (req, res) => {
   res.render("job", { job: null })
 }
 
-const jobsEdit = async (req, res) => {
+const jobsEdit = async (req, res, next) => {
   let job;
   try {
     job = await Job.findOne({_id: req.params.id, createdBy: req.user._id});
@@ -50,7 +50,7 @@ const jobsEdit = async (req, res) => {
   res.render("job", { job })
 }
 
-const jobsUpdate = async (req, res) => {
+const jobsUpdate = async (req, res, next) => {
   try {
     await Job.findOneAndUpdate({_id: req.params.id, createdBy: req.user._id}, {...req.body});
   } catch (e) {
@@ -63,7 +63,7 @@ const jobsUpdate = async (req, res) => {
   }
   res.redirect("/jobs");
 }
-const jobsDelete = async (req, res) => {
+const jobsDelete = async (req, res, next) => {
 
     try {
     await Job.deleteOne({_id: req.params.id, createdBy: req.user._id});
