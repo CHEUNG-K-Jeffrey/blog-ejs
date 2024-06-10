@@ -108,7 +108,11 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    await require("./db/connect")(process.env.MONGO_URI);
+    let mongoURL = process.env.MONGO_URI
+    if (process.env.NODE_ENV == "test") {
+      mongoURL = process.env.MONGO_URI_TEST
+    }
+await require("./db/connect")(mongoURL);
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`),
     );
