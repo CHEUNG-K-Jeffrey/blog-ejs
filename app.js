@@ -99,7 +99,7 @@ app.use((req, res) => {
   res.status(404).send(`That page (${req.url}) was not found.`);
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(500).send(err.message);
   console.log(err);
 });
