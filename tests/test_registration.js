@@ -80,7 +80,7 @@ describe("tests for registration and logon", function () {
       const request = chai
         .request(app)
         .post("/sessions/logon")
-        .set("Cookie", this.csrfCookie)
+        .set("Cookie", `csrfToken=${this.csrfCookie}`)
         .set("content-type", "application/x-www-form-urlencoded")
         .redirects(0)
         .send(dataToPost);
