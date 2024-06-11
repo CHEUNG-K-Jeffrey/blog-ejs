@@ -5,7 +5,7 @@ const { app, server } = require("../app");
 const { expect } = chai;
 const { describe, it, after } = require("mocha");
 
-const { factory, seed_db } = require("../utils/seed_db");
+const { factory } = require("../utils/seed_db");
 const faker = require("@faker-js/faker").fakerEN_US;
 
 const User = require("../models/User");
