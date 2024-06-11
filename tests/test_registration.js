@@ -2,7 +2,7 @@
 const chai = require("chai");
 chai.use(require("chai-http"));
 const { app, server } = require("../app");
-const expect = chai.expect;
+const { assert, expect } = chai;
 const { describe, it, after } = require("mocha");
 
 const { factory, seed_db } = require("../utils/seed_db");
@@ -115,18 +115,29 @@ describe("tests for registration and logon", function () {
       });
   });
   it("should logoff the user", (done) => {
-    chai
-      .request(app)
-      .post("/sessions/logoff")
-      .set("Cookie", this.csrfToken + ";" + this.sessionCookie)
-      .set("content-type", "application/x-www-form-urlencoded")
-      .send()
-      .end((err, res) => {
-        expect(err).to.equal(null);
-        expect(res).to.have.status(200);
-        expect(res).to.have.property("text");
-        expect(res.text).to.include(this.user.name);
-        done();
-      });
+    const dataToPost = {
+      _csrf: this.csrfToken,
+    };
+    try {
+      chai
+        .request(app)
+        .post("/sessions/logoff")
+        .set(
+          "Cookie",
+          `csrfToken=${this.csrfCookie}` + ";" + this.sessionCookie
+        )
+        .set("content-type", "application/x-www-form-urlencoded")
+        .send(dataToPost)
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res).to.have.status(200);
+          expect(res).to.have.property("text");
+          assert.fail(res.text).to.include(this.user.name);
+          done();
+        });
+    } catch (err) {
+      console.log(err);
+      expect.fail("Logoff request failed");
+    }
   });
 });
