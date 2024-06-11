@@ -11,7 +11,7 @@ const jobsGet = async (req, res, next) => {
     } else {
       return next(e);
     }
-    return res.render("register", { errors: req.flash("errors") });
+    return res.status(400).render("register", { errors: req.flash("errors") });
   }
   res.render("jobs", { jobs });
 };
@@ -25,7 +25,7 @@ const jobsPost = async (req, res, next) => {
     } else {
       return next(e);
     }
-    return res.render("register", { errors: req.flash("errors") });
+    return res.status(400).render("register", { errors: req.flash("errors") });
   }
   res.redirect("/jobs");
 };
@@ -44,7 +44,7 @@ const jobsEdit = async (req, res, next) => {
     } else {
       return next(e);
     }
-    return res.render("register", { errors: req.flash("errors") });
+    return res.status(400).render("register", { errors: req.flash("errors") });
   }
   res.render("job", { job });
 };
@@ -61,7 +61,7 @@ const jobsUpdate = async (req, res, next) => {
     } else {
       return next(e);
     }
-    return res.render("register", { errors: req.flash("errors") });
+    return res.status(400).render("register", { errors: req.flash("errors") });
   }
   res.redirect("/jobs");
 };
@@ -74,7 +74,7 @@ const jobsDelete = async (req, res, next) => {
     } else {
       return next(e);
     }
-    return res.render("register", { errors: req.flash("errors") });
+    return res.status(400).render("register", { errors: req.flash("errors") });
   }
   res.redirect("/jobs");
 };
