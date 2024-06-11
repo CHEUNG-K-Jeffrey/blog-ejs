@@ -121,12 +121,12 @@ describe("tests for registration and logon", function () {
       .set("Cookie", this.csrfToken + ";" + this.sessionCookie)
       .set("content-type", "application/x-www-form-urlencoded")
       .send()
-    .end((err, res) => {
+      .end((err, res) => {
         expect(err).to.equal(null);
         expect(res).to.have.status(200);
         expect(res).to.have.property("text");
         expect(res.text).to.include(this.user.name);
         done();
-      }
+      });
   });
 });
