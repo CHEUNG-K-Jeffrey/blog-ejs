@@ -32,7 +32,7 @@ const logoff = (req, res) => {
       console.log(err);
       return res.status(400).render("register", { errors: req.flash("error") });
     }
-    res.redirect("/");
+    res.status(302).redirect("/");
   });
 };
 
