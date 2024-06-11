@@ -2,7 +2,7 @@
 const chai = require("chai");
 chai.use(require("chai-http"));
 const { app, server } = require("../app");
-const { assert, expect } = chai;
+const { expect } = chai;
 const { describe, it, after } = require("mocha");
 
 const { factory, seed_db } = require("../utils/seed_db");
@@ -132,7 +132,7 @@ describe("tests for registration and logon", function () {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
           expect(res).to.have.property("text");
-          assert.fail(res.text).to.include(this.user.name);
+          expect(res.text).to.not.include(this.user.name);
           done();
         });
     } catch (err) {
