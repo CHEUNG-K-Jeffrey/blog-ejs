@@ -1,7 +1,9 @@
+"use strict";
 const chai = require("chai");
 chai.use(require("chai-http"));
 const { app, server } = require("../app");
 const expect = chai.expect;
+const { describe, it, after } = require("chai");
 
 const { factory, seed_db } = require("../utils/seed_db");
 const faker = require("@faker-js/faker").fakerEN_US;
@@ -23,7 +25,7 @@ describe("tests for registration and logon", function () {
         expect(res).to.have.property("text");
         expect(res.text).to.include("Enter your name");
         const textNoLineEnd = res.text.replaceAll("\n", "");
-        const csrfToken = /_csrf\" value=\"(.*?)\"/.exec(textNoLineEnd);
+        const csrfToken = /_csrf" value="(.*?)"/.exec(textNoLineEnd);
         expect(csrfToken).to.not.be.null;
         this.csrfToken = csrfToken[1];
         expect(res).to.have.property("headers");
@@ -56,12 +58,12 @@ describe("tests for registration and logon", function () {
         .set("Cookie", `csrfToken=${this.csrfCookie}`)
         .set("content-type", "application/x-www-form-urlencoded")
         .send(dataToPost);
-      res = await request;
+      const res = await request;
       console.log("got here");
       expect(res).to.have.status(200);
       expect(res).to.have.property("text");
       expect(res.text).to.include("Jobs List");
-      newUser = await User.findOne({ email: this.user.email });
+      const newUser = await User.findOne({ email: this.user.email });
       expect(newUser).to.not.be.null;
       console.log(newUser);
     } catch (err) {
@@ -84,7 +86,7 @@ describe("tests for registration and logon", function () {
         .set("content-type", "application/x-www-form-urlencoded")
         .redirects(0)
         .send(dataToPost);
-      res = await request;
+      const res = await request;
       expect(res).to.have.status(302);
       expect(res.headers.location).to.equal("/");
       const cookies = res.headers["set-cookie"];
@@ -112,4 +114,5 @@ describe("tests for registration and logon", function () {
         done();
       });
   });
+  it("should logoff the user", (done) => {});
 });

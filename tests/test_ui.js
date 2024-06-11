@@ -1,7 +1,9 @@
+"use strict";
 const chai = require("chai");
 chai.use(require("chai-http"));
 const { app, server } = require("../app");
 const expect = chai.expect;
+const { describe, it, after } = require("chai");
 
 describe("test getting a page", function () {
   after(() => {
