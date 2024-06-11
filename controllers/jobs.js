@@ -1,5 +1,5 @@
 const Job = require("../models/Job");
-const parseVErr = require("../util/parseValidationErr");
+const parseVErr = require("../utils/parseValidationErr");
 
 const jobsGet = async (req, res, next) => {
   let jobs;
