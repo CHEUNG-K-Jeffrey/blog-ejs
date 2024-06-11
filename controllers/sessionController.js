@@ -30,6 +30,7 @@ const logoff = (req, res) => {
   req.session.destroy(function (err) {
     if (err) {
       console.log(err);
+      return res.status(400).render("register", { errors: req.flash("error") });
     }
     res.redirect("/");
   });
