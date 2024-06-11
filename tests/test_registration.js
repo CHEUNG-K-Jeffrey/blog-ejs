@@ -85,7 +85,6 @@ describe("tests for registration and logon", function () {
         .redirects(0)
         .send(dataToPost);
       res = await request;
-      console.log(`DEBUG: LOOK AT ME`);
       expect(res).to.have.status(302);
       expect(res.headers.location).to.equal("/");
       const cookies = res.headers["set-cookie"];
