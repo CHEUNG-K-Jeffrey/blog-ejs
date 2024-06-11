@@ -81,7 +81,7 @@ app.use(csrf_middleware);
 app.get("/", (req, res) => {
   res.render("index");
 });
-app.use("/session", require("./routes/sessionRoutes"));
+app.use("/sessions", require("./routes/sessionRoutes"));
 
 app.get("/multiply", (req, res) => {
   let result = req.query.first * req.query.second;
