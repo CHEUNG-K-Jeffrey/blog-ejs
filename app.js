@@ -115,19 +115,21 @@ app.use((err, req, res) => {
 
 const port = process.env.PORT || 3000;
 
-const start = async () => {
+const start = () => {
   try {
     let mongoURL = process.env.MONGO_URI;
     if (process.env.NODE_ENV == "test") {
       mongoURL = process.env.MONGO_URI_TEST;
     }
-    await require("./db/connect")(mongoURL);
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
+    require("./db/connect")(mongoURL);
+    return app.listen(port, () => {
+      console.log(`Server is listening on port ${port}...`);
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-start();
+const server = start();
+
+module.exports = { app, server };
