@@ -3,7 +3,7 @@ const chai = require("chai");
 chai.use(require("chai-http"));
 const { app, server } = require("../app");
 const expect = chai.expect;
-const { describe, it, after } = require("chai");
+const { describe, it, after } = require("mocha");
 
 describe("test getting a page", function () {
   after(() => {

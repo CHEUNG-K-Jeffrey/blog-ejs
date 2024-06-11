@@ -3,7 +3,7 @@ const chai = require("chai");
 chai.use(require("chai-http"));
 const { app, server } = require("../app");
 const expect = chai.expect;
-const { describe, it, after } = require("chai");
+const { describe, it, after } = require("mocha");
 
 const { factory, seed_db } = require("../utils/seed_db");
 const faker = require("@faker-js/faker").fakerEN_US;
@@ -114,5 +114,19 @@ describe("tests for registration and logon", function () {
         done();
       });
   });
-  it("should logoff the user", (done) => {});
+  it("should logoff the user", (done) => {
+    chai
+      .request(app)
+      .post("/sessions/logoff")
+      .set("Cookie", this.csrfToken + ";" + this.sessionCookie)
+      .set("content-type", "application/x-www-form-urlencoded")
+      .send()
+    .end((err, res) => {
+        expect(err).to.equal(null);
+        expect(res).to.have.status(200);
+        expect(res).to.have.property("text");
+        expect(res.text).to.include(this.user.name);
+        done();
+      }
+  });
 });

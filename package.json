@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test glob \"tests/*.js\" -c \"mocha --exit\" ",
+    "test": "cross-env NODE_ENV=test glob \"tests/*.js\" -c \"mocha -u bdd --exit\" ",
     "dev": "nodemon app.js"
   },
   "author": "",
