@@ -23,6 +23,7 @@ factory.define("user", User, {
 const seed_db = async () => {
   let testUser = null;
   try {
+    // eslint-disable-next-line no-unused-vars
     const mongoURL = process.env.MONGO_URI_TEST;
     await Job.deleteMany({}); // deletes all job records
     await User.deleteMany({}); // and all the users
