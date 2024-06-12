@@ -13,7 +13,7 @@ const jobsGet = async (req, res, next) => {
     }
     return res.status(400).render("register", { errors: req.flash("errors") });
   }
-  res.render("jobs", { jobs });
+  res.render("jobs", { info: req.query.info, jobs });
 };
 
 const jobsPost = async (req, res, next) => {
@@ -27,7 +27,7 @@ const jobsPost = async (req, res, next) => {
     }
     return res.status(400).render("register", { errors: req.flash("errors") });
   }
-  res.redirect("/jobs");
+  res.redirect("/jobs?info=Added%20New%20Job");
 };
 
 const jobsNew = (req, res) => {
