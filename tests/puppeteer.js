@@ -19,8 +19,8 @@ const runTests = async () => {
       this.timeout(30000);
       browser = await puppeteer.launch({ headless: false, slowMo: 100 });
       page = await browser.newPage();
+      await page.goto("http://localhost:3000");
       // server.listen(3000).addListener("listening", async () => {
-      //   await page.goto("http://localhost:3000");
       // });
     });
     after(async function () {
