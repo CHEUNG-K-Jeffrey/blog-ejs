@@ -6,7 +6,6 @@ const expect = chai.expect;
 const { describe, it, after } = require("mocha");
 const { testUserPassword, seed_db } = require("../utils/seed_db");
 const Job = require("../models/Job");
-const User = require("../models/User");
 
 describe("test seeded database", async function () {
   after(() => {
