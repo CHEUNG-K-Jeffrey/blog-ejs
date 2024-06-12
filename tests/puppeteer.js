@@ -17,11 +17,11 @@ const runTests = async () => {
   describe("index page test", function () {
     before(async function () {
       this.timeout(30000);
-      browser = await puppeteer.launch();
+      browser = await puppeteer.launch({ headless: false, slowMo: 100 });
       page = await browser.newPage();
-      server.listen(3000).addListener("listening", async () => {
-        await page.goto("http://localhost:3000");
-      });
+      // server.listen(3000).addListener("listening", async () => {
+      //   await page.goto("http://localhost:3000");
+      // });
     });
     after(async function () {
       this.timeout(32000);
