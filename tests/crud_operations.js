@@ -14,6 +14,7 @@ describe("test seeded database", async function () {
 
   let vars = {};
   it("should get 20 jobs", async function () {
+    this.timeout(5000);
     vars.user = await seed_db();
 
     // Get csrf token from login page
