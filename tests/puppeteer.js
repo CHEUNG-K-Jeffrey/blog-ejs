@@ -16,6 +16,7 @@ const runTests = async () => {
   // Launch the browser and open a new blank page
   describe("index page test", function () {
     before(async function () {
+      server.listen(3000);
       this.timeout(30000);
       browser = await puppeteer.launch({ headless: false, slowMo: 100 });
       page = await browser.newPage();
