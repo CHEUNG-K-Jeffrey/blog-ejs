@@ -1,25 +1,25 @@
-const helmet = require("helmet")
-const xss = require('xss-clean')
+const helmet = require("helmet");
+const xss = require("xss-clean");
 const express = require("express");
 require("express-async-errors");
 
 const app = express();
 
-const rateLimit = require('express-rate-limit').rateLimit
+const rateLimit = require("express-rate-limit").rateLimit;
 
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
-	// store: ... , // Redis, Memcached, etc. See below.
-})
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: "draft-7", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  // store: ... , // Redis, Memcached, etc. See below.
+});
 
 // Apply the rate limiting middleware to all requests.
-app.use(limiter)
+app.use(limiter);
 
 app.use(helmet());
-app.use(xss())
+app.use(xss());
 
 require("dotenv").config(); // to load the .env file into the process.env object
 const session = require("express-session");
@@ -83,6 +83,16 @@ app.get("/", (req, res) => {
 });
 app.use("/sessions", require("./routes/sessionRoutes"));
 
+app.get("/multiply", (req, res) => {
+  let result = req.query.first * req.query.second;
+  if (result.isNaN) {
+    result = "NaN";
+  } else if (result == null) {
+    result = "null";
+  }
+  res.json({ result: result });
+});
+
 app.set("view engine", "ejs");
 
 // secret word handling
@@ -93,7 +103,6 @@ app.use("/secretWord", auth, secretWordRouter);
 app.use("/secretWord", secretWordRouter);
 const jobs = require("./routes/jobs");
 app.use("/jobs", auth, jobs);
-
 
 app.use((req, res) => {
   res.status(404).send(`That page (${req.url}) was not found.`);
@@ -106,15 +115,21 @@ app.use((err, req, res) => {
 
 const port = process.env.PORT || 3000;
 
-const start = async () => {
+const start = () => {
   try {
-    await require("./db/connect")(process.env.MONGO_URI);
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`),
-    );
+    let mongoURL = process.env.MONGO_URI;
+    if (process.env.NODE_ENV == "test") {
+      mongoURL = process.env.MONGO_URI_TEST;
+    }
+    require("./db/connect")(mongoURL);
+    return app.listen(port, () => {
+      console.log(`Server is listening on port ${port}...`);
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-start();
+const server = start();
+
+module.exports = { app, server };
