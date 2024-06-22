@@ -1,6 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import helmet from "helmet";
+import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import xss from "xss-clean";
 
 const app = express();
@@ -26,7 +27,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send(`Hello World!`);
 });
 
-app.get("*", (req, res) => {});
+app.get("*", (req: Request, res: Response) => {
+  res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
+});
 
 // Start server
 app.listen(port, () => {
