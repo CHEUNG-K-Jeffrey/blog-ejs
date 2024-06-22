@@ -1,9 +1,9 @@
 {
   "name": "blog-ejs",
   "version": "1.0.0",
-  "main": "app.mjs",
+  "main": "app.mts",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.mts"
   },
   "author": "",
   "license": "ISC",
