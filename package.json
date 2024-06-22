@@ -1,6 +1,7 @@
 {
   "name": "blog-ejs",
   "version": "1.0.0",
+  "type": "module",
   "main": "app.mts",
   "scripts": {
     "dev": "tsx watch app.mts"
