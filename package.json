@@ -12,7 +12,8 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
     "mongoose": "^8.4.3",
-    "tsx": "^4.15.7"
+    "tsx": "^4.15.7",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.5.0",
