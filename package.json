@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.mts",
   "scripts": {
-    "dev": "nodemon app.mts"
+    "dev": "tsx watch app.mts"
   },
   "author": "",
   "license": "ISC",
@@ -11,7 +11,8 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
-    "mongoose": "^8.4.3"
+    "mongoose": "^8.4.3",
+    "tsx": "^4.15.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.5.0",
@@ -23,7 +24,6 @@
     "eslint": "^9.5.0",
     "eslint-ts-patch": "^9.4.0-0",
     "globals": "^15.6.0",
-    "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.3",
     "typescript": "^5.5.2",
