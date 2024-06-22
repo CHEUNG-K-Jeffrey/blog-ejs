@@ -1,4 +1,5 @@
 import express from "express";
+import { Request, Response } from "express";
 import helmet from "helmet";
 import xss from "xss-clean";
 
@@ -21,9 +22,11 @@ app.use(helmet());
 app.use(xss());
 
 // Configure Routes
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send(`Hello World!`);
 });
+
+app.get("*", (req, res) => {});
 
 // Start server
 app.listen(port, () => {
