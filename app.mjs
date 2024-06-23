@@ -48,6 +48,28 @@ app.use(helmet()); // Increases security by setting HTTP response headers
 app.use(xss()); // Prevent cross-site scripting
 app.use((await import("cookie-parser")).default(sessionSecret));
 
+const session = (await import("express-session")).default;
+const MongoDBStore = (await import("connect-mongodb-session")).default(session);
+const url = process.env.MONGO_URI;
+
+const store = new MongoDBStore({
+  // may throw an error, which won't be caught
+  uri: url,
+  collection: "mySessions",
+});
+store.on("error", function (error) {
+  console.log(error);
+});
+
+const sessionParms = {
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  store: store,
+  cookie: { secure: false, sameSite: "strict" },
+};
+
+app.use(session(sessionParms));
 (await import("./passport/passportInit.mjs")).default();
 app.use(passport.initialize());
 app.use(passport.session());
