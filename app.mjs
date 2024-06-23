@@ -4,6 +4,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import xss from "xss-clean";
 import { doubleCsrf } from "csrf-csrf";
 import flash from "connect-flash";
+import passport from "passport";
 
 // Read and load config
 (await import("dotenv")).config();
@@ -47,6 +48,9 @@ app.use(helmet()); // Increases security by setting HTTP response headers
 app.use(xss()); // Prevent cross-site scripting
 app.use((await import("cookie-parser")).default(sessionSecret));
 
+(await import("./passport/passportInit")).default();
+app.use(passport.initialize());
+app.use(passport.session());
 // Configure app
 app.use(flash());
 app.set("view engine", "ejs");
