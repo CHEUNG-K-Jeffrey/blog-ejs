@@ -5,7 +5,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import xss from "xss-clean";
 
 const app = express();
-let port = 3000;
+const port = 3000;
 
 // Read config
 
