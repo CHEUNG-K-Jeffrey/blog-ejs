@@ -48,7 +48,7 @@ app.use(helmet()); // Increases security by setting HTTP response headers
 app.use(xss()); // Prevent cross-site scripting
 app.use((await import("cookie-parser")).default(sessionSecret));
 
-(await import("./passport/passportInit")).default();
+(await import("./passport/passportInit.mjs")).default();
 app.use(passport.initialize());
 app.use(passport.session());
 // Configure app
@@ -58,7 +58,7 @@ app.use(doubleCsrfProtection);
 
 // Configure Routes
 app.get("/", (req, res) => {
-  res.send(`Hello World!`);
+  res.render("index");
 });
 
 app.get("*", (req, res) => {
