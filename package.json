@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "csrf-csrf": "^3.0.6",
     "dotenv": "^16.4.5",
@@ -27,6 +28,7 @@
     "@eslint/js": "^9.5.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/bcryptjs": "^2.4.6",
+    "@types/connect-flash": "^0.0.40",
     "@types/cookie-parser": "^1.4.7",
     "@types/eslint__js": "^8.42.3",
     "@types/express": "^4.17.21",
