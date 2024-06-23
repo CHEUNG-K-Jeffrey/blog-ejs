@@ -4,11 +4,12 @@ import helmet from "helmet";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import xss from "xss-clean";
 
-const app = express();
-const port = 3000;
-
 // Read and load config
 (await import("dotenv")).config();
+
+// Initialize the app
+const app = express();
+const port = 3000;
 
 // Configure middleware
 app.use(
