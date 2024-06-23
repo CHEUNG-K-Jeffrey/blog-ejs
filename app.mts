@@ -7,7 +7,8 @@ import xss from "xss-clean";
 const app = express();
 const port = 3000;
 
-// Read config
+// Read and load config
+(await import("dotenv")).config();
 
 // Configure middleware
 app.use(
