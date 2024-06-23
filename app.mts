@@ -11,7 +11,7 @@ import xss from "xss-clean";
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-// Configure middleware
+// Load middleware
 app.use(
   (await import("express-rate-limit")).rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -20,9 +20,9 @@ app.use(
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
     // store: ... , // Redis, Memcached, etc. See below.
   })
-);
-app.use(helmet());
-app.use(xss());
+); // Rate limit by IP
+app.use(helmet()); // Increases security by setting HTTP response headers
+app.use(xss()); // Prevent cross-site scripting
 
 // Configure app
 app.set("view engine", "ejs");
