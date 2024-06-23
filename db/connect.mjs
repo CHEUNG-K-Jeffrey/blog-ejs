@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connectDB = (url: string) => {
+const connectDB = (url) => {
   return mongoose.connect(url);
 };
 

@@ -1,5 +1,4 @@
 import express from "express";
-import { Request, Response } from "express";
 import helmet from "helmet";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import xss from "xss-clean";
@@ -54,16 +53,16 @@ app.set("view engine", "ejs");
 app.use(doubleCsrfProtection);
 
 // Configure Routes
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (req, res) => {
   res.send(`Hello World!`);
 });
 
-app.get("*", (req: Request, res: Response) => {
+app.get("*", (req, res) => {
   res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
 });
 
 // Start server
-const mongoURL = process.env.MONGO_URI as string;
+const mongoURL = process.env.MONGO_URI;
 
 (await import("./db/connect.mjs")).default(mongoURL);
 app.listen(port, () => {
