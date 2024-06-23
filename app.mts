@@ -24,6 +24,9 @@ app.use(
 app.use(helmet());
 app.use(xss());
 
+// Configure app
+app.set("view engine", "ejs");
+
 // Configure Routes
 app.get("/", (req: Request, res: Response) => {
   res.send(`Hello World!`);
