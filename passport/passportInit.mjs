@@ -1,6 +1,6 @@
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("../models/User");
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import User from "../models/User";
 
 const passportInit = () => {
   passport.use(
@@ -44,4 +44,4 @@ const passportInit = () => {
   });
 };
 
-module.exports = passportInit;
+export default passportInit;
