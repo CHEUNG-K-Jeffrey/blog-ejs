@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 declare module "xss-clean" {
   import { IncomingMessage, ServerResponse } from "http";
   export default function xss(): (
