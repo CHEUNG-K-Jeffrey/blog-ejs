@@ -4,6 +4,7 @@ import helmet from "helmet";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import xss from "xss-clean";
 import { doubleCsrf } from "csrf-csrf";
+import flash from "connect-flash";
 
 // Read and load config
 (await import("dotenv")).config();
@@ -48,6 +49,7 @@ app.use(xss()); // Prevent cross-site scripting
 app.use((await import("cookie-parser")).default(sessionSecret));
 
 // Configure app
+app.use(flash());
 app.set("view engine", "ejs");
 app.use(doubleCsrfProtection);
 
