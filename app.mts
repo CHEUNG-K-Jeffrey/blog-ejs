@@ -61,6 +61,9 @@ app.get("*", (req: Request, res: Response) => {
 });
 
 // Start server
+const mongoURL = process.env.MONGO_URI as string;
+
+(await import("./db/connect.mjs")).default(mongoURL);
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
