@@ -3,6 +3,9 @@ const xss = require("xss-clean");
 const express = require("express");
 require("express-async-errors");
 
+// Load config
+require("dotenv").config(); // to load the .env file into the process.env object
+
 const app = express();
 
 const rateLimit = require("express-rate-limit").rateLimit;
@@ -19,7 +22,6 @@ app.use(rateLimit({
 app.use(helmet());
 app.use(xss());
 
-require("dotenv").config(); // to load the .env file into the process.env object
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const url = process.env.MONGO_URI;
