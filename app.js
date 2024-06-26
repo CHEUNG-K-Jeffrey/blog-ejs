@@ -69,6 +69,9 @@ app.use(require("connect-flash")());
 app.use(require("./middleware/storeLocals"));
 app.use(csrf(csrf_options));
 
+// Configure app
+app.set("view engine", "ejs");
+
 // ROUTES
 
 app.get("/", (req, res) => {
@@ -86,8 +89,6 @@ app.get("/multiply", (req, res) => {
   }
   res.json({ result: result });
 });
-
-app.set("view engine", "ejs");
 
 // secret word handling
 // let secretWord = "syzygy"; <-- comment this out or remove this line
