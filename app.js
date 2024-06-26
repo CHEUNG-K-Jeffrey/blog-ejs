@@ -59,7 +59,7 @@ const csrf_options = {
   protected_content_types: ["application/json"],
   development_mode: csrf_development_mode,
 };
-const csrf_middleware = csrf(csrf_options); //initialise and return middlware
+
 app.use(require("body-parser").urlencoded({ extended: true }));
 app.use(session(sessionParms));
 const passport = require("passport");
@@ -70,13 +70,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require("connect-flash")());
 app.use(require("./middleware/storeLocals"));
-app.use(csrf_middleware);
+app.use(csrf(csrf_options));
 
 // ROUTES
 
 app.get("/", (req, res) => {
   res.render("index");
 });
+
 app.use("/sessions", require("./routes/sessionRoutes"));
 
 app.get("/multiply", (req, res) => {
