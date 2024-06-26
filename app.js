@@ -90,12 +90,8 @@ app.get("/multiply", (req, res) => {
   res.json({ result: result });
 });
 
-// secret word handling
-// let secretWord = "syzygy"; <-- comment this out or remove this line
-const secretWordRouter = require("./routes/secretWord");
 const auth = require("./middleware/auth");
-app.use("/secretWord", auth, secretWordRouter);
-app.use("/secretWord", secretWordRouter);
+app.use("/secretWord", auth, require("./routes/secretWord"));
 app.use("/jobs", auth, require("./routes/jobs"));
 
 app.use((req, res) => {
