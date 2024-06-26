@@ -15,8 +15,8 @@ app.use(require("express-rate-limit").rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
   // store: ... , // Redis, Memcached, etc. See below.
 }));
-app.use(helmet());
-app.use(xss());
+app.use(helmet()); // Set secure HTTP headers
+app.use(xss()); // Prevent cross-site scripting attacks
 
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
