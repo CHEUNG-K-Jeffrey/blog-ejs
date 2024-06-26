@@ -8,17 +8,13 @@ require("dotenv").config(); // to load the .env file into the process.env object
 
 const app = express();
 
-const rateLimit = require("express-rate-limit").rateLimit;
-
-// Apply the rate limiting middleware to all requests.
-app.use(rateLimit({
+app.use(require("express-rate-limit").rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
   standardHeaders: "draft-7", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
   // store: ... , // Redis, Memcached, etc. See below.
 }));
-
 app.use(helmet());
 app.use(xss());
 
@@ -108,9 +104,9 @@ app.use((req, res) => {
   res.status(404).send(`That page (${req.url}) was not found.`);
 });
 
-app.use((err, req, res) => {
-  res.status(500).send(err.message);
+app.use((err, req, res, next) => {
   console.log(err);
+  res.status(500).send(err.message);
 });
 
 const port = process.env.PORT || 3000;
