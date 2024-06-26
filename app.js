@@ -62,12 +62,9 @@ const csrf_options = {
 
 app.use(require("body-parser").urlencoded({ extended: true }));
 app.use(session(sessionParms));
-const passport = require("passport");
-const passportInit = require("./passport/passportInit");
 
-passportInit();
-app.use(passport.initialize());
-app.use(passport.session());
+require("./passport/passportInit")(app);
+
 app.use(require("connect-flash")());
 app.use(require("./middleware/storeLocals"));
 app.use(csrf(csrf_options));

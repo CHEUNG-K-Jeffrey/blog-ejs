@@ -2,7 +2,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../models/User");
 
-const passportInit = () => {
+const passportInit = (app) => {
   passport.use(
     "local",
     new LocalStrategy(
@@ -42,6 +42,8 @@ const passportInit = () => {
       done(e);
     }
   });
+  app.use(passport.initialize());
+  app.use(passport.session());
 };
 
 module.exports = passportInit;
